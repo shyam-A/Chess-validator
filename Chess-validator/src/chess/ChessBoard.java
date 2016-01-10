@@ -17,10 +17,13 @@ public class ChessBoard {
                 {"--", "--", "--", "--", "--", "--", "--", "--"},
                 {"BP", "BP", "BP", "BP", "BP", "BP", "BP", "BP"},
                 {"BR", "BH", "BB", "BQ", "BK", "BB", "BH", "BR"}};
-
+    }
+    
+    public ChessBoard(String[][] board) {
+        this.board = board;
     }
 
-    public void move(int from, int to) throws Exception {
+    public String[][] move(int from, int to) throws Exception {
         if(from > 77 || to > 77)
             throw new NotValidPositionException("Not a valid position");
         String pieceToBeMoved = this.board[from/10][from%10];
@@ -37,11 +40,10 @@ public class ChessBoard {
             }
             this.board[from/10][from%10] = "--";
             System.out.println("Moved successfully. Piece: "+this.board[to/10][to%10]);
-            System.out.println(Arrays.deepToString(this.board));
         } else {
             throw new IllegalMoveException("Move is not valid");
         }
-
+        return this.board;
     }
 
     public static void main(String[] args) {
@@ -49,7 +51,7 @@ public class ChessBoard {
             ChessBoard chessBoard = new ChessBoard();
             int from = 14; //from row*10 + from col
             int to = 34; //to row*10 + to col
-            chessBoard.move(from, to);
+            System.out.println(Arrays.deepToString(chessBoard.move(from, to)));
         } catch (Exception e) {
             e.printStackTrace();
         }
